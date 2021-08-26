@@ -41,6 +41,7 @@ brew install caskroom/cask/brew-cask
 
 CASKS=(
     iterm2
+    via
 )
 
 echo "Installing cask apps..."
