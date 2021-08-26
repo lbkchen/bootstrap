@@ -31,30 +31,25 @@ PACKAGES=(
 echo "Installing packages..."
 brew install "${PACKAGES[@]}"
 
-"$(brew --prefix)"/opt/fzf/install # Keybindings and fuzzy completion for fzf
+# Keybindings and fuzzy completion for fzf, accept all defaults
+yes | "$(brew --prefix)"/opt/fzf/install 
 
 echo "Cleaning up..."
 brew cleanup
 
-echo "Installing cask..."
-brew install caskroom/cask/brew-cask
-
-CASKS=(
-    iterm2
-    via
-)
-
 echo "Installing cask apps..."
-brew cask install "${CASKS[@]}"
 
-echo "Installing fonts..."
-brew tap caskroom/fonts
-FONTS=(
-    font-inconsolidata
-    font-roboto
-    font-clear-sans
-)
-brew cask install "${FONTS[@]}"
+if [[ ! -d "/Applications/iTerm.app" ]]; then
+    brew install iterm2
+else 
+    echo "✅ iTerm already installed"
+fi 
+
+if [[ ! -d "/Applications/VIA.app" ]]; then
+    brew install via
+else
+    echo "✅ VIA already installed"
+fi 
 
 echo "Installing Python packages..."
 PYTHON_PACKAGES=(
